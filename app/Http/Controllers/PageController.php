@@ -8,11 +8,16 @@ class PageController extends Controller
 {
     public function home()
     {
-        $url = route('product.show',['productNumber'=> 10]);
-        return 'Like generated : '. $url;
+        $shopInfo = [
+            'name' => 'ShopLaravel',
+            'nbProduct' => 25,
+            'isOpen' => true
+        ];
+        return view('home',compact('shopInfo'));
     }
     public function about()
     {
-        return 'Bienvenue sur ShopLaravel, votre boutique en ligne de référence développée avec la puissance du framework Laravel. Nous nous engageons à vous offrir une expérience d\'achat moderne et fluide. Explorez notre catalogue pour découvrir les détails de nos produits et profiter d\'une interface optimisée pour vos besoins.';
+        $presentation = 'Welcome to ShopLaravel, your go-to online store developed with the power of the Laravel framework. We are committed to providing you with a modern and seamless shopping experience. Explore our catalogue to discover the details of our products and enjoy an interface optimised for your needs.';
+        return view('about', compact('presentation'));
     }
 }
