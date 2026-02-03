@@ -15,14 +15,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $this->call([
-            CategorySeeder::class,
+            CategoriesSeeder::class,
+            ProductsSeeder::class,
+            UserSeeder::class,
+            OrdersSeeder::class,
+            Order_itemsSeeder::class,
         ]);
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('price', 8,2)->unsigned();
             $table->integer('stock')->unsigned();
-            $table->boolean('status');
+            $table->boolean('status')->default(true);
 
             $table->foreignId('category_id')->constrained();
             

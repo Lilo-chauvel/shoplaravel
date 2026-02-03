@@ -5,13 +5,15 @@ namespace Database\Seeders;
 use DB;
 use Illuminate\Database\Seeder;
 
-class CategorySeeder extends Seeder
+class CategoriesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
+        // Les produits doivent être truncatés avant !
+        DB::table('categories')->truncate();
         DB::table('categories')->insert(
             [
                 [
