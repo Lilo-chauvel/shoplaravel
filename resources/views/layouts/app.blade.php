@@ -111,6 +111,13 @@
                 </ul>
             </div>
         </div>
+
+        @if (session('newProductName'))
+            <div class="alert alert-success">
+                <p>{{ session('newProductName') }}</p>
+            </div>
+        @endif
+
     </nav>
 
     <!-- Main Content -->
@@ -155,5 +162,3 @@
 </body>
 
 </html>
-
-

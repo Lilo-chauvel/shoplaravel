@@ -9,7 +9,6 @@
             <h1 class="display-4 fw-bold mb-3">Nos Produits</h1>
             <p class="lead text-muted">Découvrez notre sélection exclusive de produits de qualité</p>
         </section>
-
         @forelse ($products as $product)
             @if ($loop->first)
                 <div class="row">
