@@ -111,14 +111,59 @@
                 </ul>
             </div>
         </div>
-
-        @if (session('newProductName'))
-            <div class="alert alert-success">
-                <p>{{ session('newProductName') }}</p>
-            </div>
-        @endif
-
     </nav>
+
+    <!-- Flash Messages -->
+    @if (session('newProductName'))
+        <div class="alert-container position-fixed top-0 start-50 translate-middle-x mt-5 pt-3"
+            style="z-index: 9999; min-width: 400px; max-width: 600px;">
+            <div class="alert alert-dismissible fade show shadow-lg border-0 {{ session('color') === 'bg-success' ? 'alert-success' : 'alert-danger' }}"
+                role="alert" style="animation: slideDown 0.5s ease-out;">
+                <div class="d-flex align-items-center">
+                    @if(session('color') === 'bg-success')
+                        <i class="bi bi-check-circle-fill me-3" style="font-size: 1.5rem;"></i>
+                    @else
+                        <i class="bi bi-exclamation-triangle-fill me-3" style="font-size: 1.5rem;"></i>
+                    @endif
+                    <div class="flex-grow-1">
+                        <strong>{{ session('color') === 'bg-success' ? 'Succès !' : 'Erreur !' }}</strong>
+                        <p class="mb-0 mt-1">{{ session('newProductName') }}</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <style>
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .alert-container .alert {
+            border-radius: 12px;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+    </style>
 
     <!-- Main Content -->
     <main>
@@ -159,6 +204,20 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Auto-close flash messages -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const alerts = document.querySelectorAll('.alert-container .alert');
+            alerts.forEach(function (alert) {
+                // Auto-close after 5 seconds
+                setTimeout(function () {
+                    const bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                }, 5000);
+            });
+        });
+    </script>
 </body>
 
 </html>

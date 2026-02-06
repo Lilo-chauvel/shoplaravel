@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -38,16 +39,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // $product = Product::create([
-        //     'name' => $request->name,
-        //     'description' => $request->description,
-        //     'price' => $request->price,
-        //     'stock' => $request->stock,
-        //     'active' => $request->has('active'),
-        // ]);
-
-        return redirect()->route('products.index')
-        ->with('newProductName','Votre produit '. $request->name. ' a bien était créé.');
+        try {
+            $product = Product::createOrFirst([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'stock' => $request->stock,
+                'active' => $request->has('active'),
+                'category_id' => $request->category_id
+            ]);
+            return redirect()->route('products.index')
+                ->with('newProductName', 'Votre produit ' . $product->name . ' a bien était créé.')->with('color', 'bg-success');
+        } catch (Exception) {
+            return redirect()->route('products.index')
+                ->with('newProductName', 'Votre produit ' . $request->name . ' n\'a pas pu être créé. Vous avez dû faire une erreur')->with('color', 'bg-danger');
+        }
     }
 
     /**
