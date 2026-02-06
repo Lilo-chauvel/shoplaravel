@@ -11,6 +11,8 @@ class Product extends Model
         'slug',
         'description',
         'price',
-        'stock'
+        'stock',
+        'status',
+        'category_id'
     ];
 }

@@ -23,36 +23,36 @@
                             style="min-height: 200px; display: flex; align-items: center; justify-content: center;">
                             <div>
                                 <i class="bi bi-image text-muted" style="font-size: 2rem;"></i>
-                                <p class="text-muted small mt-2 mb-0">{{ $product['name'] }}</p>
+                                <p class="text-muted small mt-2 mb-0">{{ $product->name }}</p>
                             </div>
                         </div>
 
                         <!-- Product Info -->
                         <div class="card-body">
-                            <h5 class="card-title">{{ $product['name'] }}</h5>
+                            <h5 class="card-title">{{ $product->name }}</h5>
 
-                            @if(isset($product['description']))
+                            @if(isset($product->description))
                                 <p class="card-text text-muted small">
-                                    {{ Str::limit($product['description'], 100) }}
+                                    {{ Str::limit($product->description, 100) }}
                                 </p>
                             @endif
 
                             <!-- Price Section -->
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                @if(isset($product['price']))
+                                @if(isset($product->price))
                                     <div>
                                         <small class="text-muted d-block">Prix</small>
                                         <strong
-                                            class="text-primary">{{ isset($product['price']) ? number_format($product['price'], 2, ',', ' ') : 'N/A' }}
+                                            class="text-primary">{{ isset($product->price) ? number_format($product->price, 2, ',', ' ') : 'N/A' }}
                                             €</strong>
                                     </div>
                                 @endif
 
-                                @if(isset($product['stock']))
+                                @if(isset($product->stock))
                                     <div class="text-end">
                                         <small class="text-muted d-block">Stock</small>
-                                        <strong class="{{ $product['stock'] > 0 ? 'text-success' : 'text-danger' }}">
-                                            {{ $product['stock'] }}
+                                        <strong class="{{ $product->stock > 0 ? 'text-success' : 'text-danger' }}">
+                                            {{ $product->stock }}
                                         </strong>
                                     </div>
                                 @endif

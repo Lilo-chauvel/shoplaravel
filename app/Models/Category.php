@@ -8,6 +8,10 @@ class Category extends Model
 {
     protected $fillable = [
         'name',
-        
+        'description'
+    ];
+    protected $casts = [
+        'price' => 'decimal:2',
+        'active' => 'boolean',
     ];
 }
