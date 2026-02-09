@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Error;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -22,15 +23,6 @@ class ProductController extends Controller
      */
     public function create()
     {
-        // $product = Product::create([
-        //     'name',
-        //     'slug',
-        //     'description',
-        //     'price',
-        //     'stock',
-        //     'status',
-        //     'category_id'
-        // ]);
         return view('products.create');
     }
 
@@ -41,18 +33,18 @@ class ProductController extends Controller
     {
         try {
             $product = Product::createOrFirst([
-                'name' => $request->name,
-                'description' => $request->description,
-                'price' => $request->price,
-                'stock' => $request->stock,
-                'active' => $request->has('active'),
-                'category_id' => $request->category_id
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'price' => $request->input('price'),
+                'stock' => $request->input('stock'),
+                'active' => $request->boolean('active'),
+                'category_id' => $request->input('category_id')
             ]);
             return redirect()->route('products.index')
                 ->with('newProductName', 'Votre produit ' . $product->name . ' a bien était créé.')->with('color', 'bg-success');
         } catch (Exception) {
             return redirect()->route('products.index')
-                ->with('newProductName', 'Votre produit ' . $request->name . ' n\'a pas pu être créé. Vous avez dû faire une erreur')->with('color', 'bg-danger');
+                ->with('newProductName', 'Votre produit ' . $request->input('name') . ' n\'a pas pu être créé. Vous avez dû faire une erreur')->with('color', 'bg-danger');
         }
     }
 
@@ -68,9 +60,10 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $product)
     {
-        //
+        $OBJproduct = Product::where('id', '=', $product)->first();
+        return view('products.edit', compact('product', 'OBJproduct'));
     }
 
     /**
@@ -78,7 +71,24 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+            try {
+            Product::where('id', '=', $id)->update([
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'price' => $request->input('price'),
+                'stock' => $request->input('stock'),
+                'active' => $request->boolean('active'),
+                'category_id' => $request->input('category_id')
+            ]);
+            $product = Product::find($id, ['*']);
+
+            return redirect()->route('products.show', $id)
+                ->with('newProductName', 'Votre produit ' . $product->name . ' a bien était mise à jour.')->with('color', 'bg-success');
+
+        } catch (Exception) {
+            return redirect()->route('products.index')
+                ->with('newProductName', 'Votre produit ' . $request->input('name') . ' n\'a pas pu être mise à jour. Vous avez dû faire une erreur')->with('color', 'bg-danger');
+        }
     }
 
     /**
@@ -86,6 +96,15 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $productName = $product->name;
+        $product->delete();
+        return redirect()->route('products.index')
+            ->with('success', 'Le produit "' . $productName . '" a bien été supprimé.');
+        try {
+        } catch (Exception $e) {
+            return redirect()->route('products.index')
+                ->with('error', 'Une erreur est survenue lors de la suppression du produit.');
+        }
     }
 }

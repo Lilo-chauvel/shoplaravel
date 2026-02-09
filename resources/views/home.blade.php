@@ -1,49 +1,55 @@
 @extends('layouts.app')
 
-@section('title', 'Accueil - ShopLaravel')
+@section('title', 'Accueil - VeloSprint')
 
 @section('content')
     <div class="container-lg py-5">
         @if($shopInfo['isOpen'])
             <!-- Hero Section -->
-            <section class="text-center mb-5">
-                <h1 class="display-4 fw-bold mb-4">
-                    Bienvenue au monde de <span class="gradient-text">{{ $shopInfo['name'] }}</span>
+            <section class="hero-splash p-4 p-lg-5 mb-5 text-center">
+                <div class="section-label mb-3">Velo de sport</div>
+                <h1 class="display-3 fw-bold mb-3">
+                    Pedalez plus vite avec <span class="gradient-text">{{ $shopInfo['name'] }}</span>
                 </h1>
-                <p class="lead text-muted mb-4">
-                    Découvrez nos collections exclusives et profitez d'une expérience d'achat simplifiée, propulsée par la
-                    technologie Laravel.
+                <p class="lead text-white-50 mb-4 mx-auto" style="max-width: 620px;">
+                    Velos de route, gravel et urbains affutes pour la performance. Design leger, sensations nettes, achat
+                    fluide.
                 </p>
-                <a href="{{ route('products.index') }}" class="btn btn-gradient btn-lg">
-                    Découvrir nos produits
-                </a>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="{{ route('products.index') }}" class="btn btn-gradient btn-lg">
+                        Decouvrir les velos
+                    </a>
+                    <a href="{{ route('about') }}" class="btn btn-outline-light btn-lg">
+                        Notre atelier
+                    </a>
+                </div>
             </section>
 
             <!-- Statistics Section -->
             <section class="row mb-5">
                 <div class="col-md-4 mb-3 mb-md-0">
-                    <div class="card bg-primary bg-opacity-10 border-0">
+                    <div class="card soft-card">
                         <div class="card-body text-center">
-                            <h3 class="text-primary fw-bold">{{ $shopInfo['nbProduct'] }}</h3>
-                            <p class="text-muted mb-0">Produits disponibles</p>
+                            <h3 class="fw-bold">{{ $shopInfo['nbProduct'] }}</h3>
+                            <p class="text-muted mb-0">Velos prets a rouler</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-4 mb-3 mb-md-0">
-                    <div class="card bg-success bg-opacity-10 border-0">
+                    <div class="card soft-card">
                         <div class="card-body text-center">
-                            <h3 class="text-success fw-bold">100%</h3>
-                            <p class="text-muted mb-0">Satisfaction garantie</p>
+                            <h3 class="fw-bold">48h</h3>
+                            <p class="text-muted mb-0">Montage atelier express</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <div class="card bg-info bg-opacity-10 border-0">
+                    <div class="card soft-card">
                         <div class="card-body text-center">
-                            <h3 class="text-info fw-bold">24/7</h3>
-                            <p class="text-muted mb-0">Support disponible</p>
+                            <h3 class="fw-bold">30 jours</h3>
+                            <p class="text-muted mb-0">Essai et retour zen</p>
                         </div>
                     </div>
                 </div>
@@ -51,53 +57,55 @@
 
             <!-- Features Section -->
             <section class="mb-5">
-                <h2 class="text-center fw-bold mb-5">Pourquoi choisir ShopLaravel ?</h2>
+                <h2 class="text-center fw-bold mb-5">Pourquoi choisir VeloSprint ?</h2>
                 <div class="row">
                     <div class="col-md-6 mb-4">
-                        <div class="card border-0 h-100">
+                        <div class="card border-0 h-100 feature-card">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <i class="bi bi-lightning-charge text-primary" style="font-size: 1.5rem;"></i>
+                                    <i class="bi bi-speedometer2 text-primary" style="font-size: 1.5rem;"></i>
                                 </div>
-                                <h5 class="card-title">Expérience rapide</h5>
-                                <p class="card-text text-muted">Interface fluide et responsive pour une navigation optimale.</p>
+                                <h5 class="card-title">Rendement pur</h5>
+                                <p class="card-text text-muted">Cadres rigides, transmission precise, energie convertie en
+                                    vitesse.</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-6 mb-4">
-                        <div class="card border-0 h-100">
+                        <div class="card border-0 h-100 feature-card">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <i class="bi bi-shield-lock text-success" style="font-size: 1.5rem;"></i>
+                                    <i class="bi bi-compass text-success" style="font-size: 1.5rem;"></i>
                                 </div>
-                                <h5 class="card-title">Sécurisé</h5>
-                                <p class="card-text text-muted">Vos données sont protégées par les dernières technologies de
-                                    sécurité.</p>
+                                <h5 class="card-title">Choix affute</h5>
+                                <p class="card-text text-muted">Route, gravel, urbain ou electrique, chaque profil est guide.
+                                </p>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-6 mb-4">
-                        <div class="card border-0 h-100">
+                        <div class="card border-0 h-100 feature-card">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <i class="bi bi-check-circle text-info" style="font-size: 1.5rem;"></i>
+                                    <i class="bi bi-tools text-info" style="font-size: 1.5rem;"></i>
                                 </div>
-                                <h5 class="card-title">Fiable</h5>
-                                <p class="card-text text-muted">Des produits de qualité et une livraison garantie.</p>
+                                <h5 class="card-title">Atelier expert</h5>
+                                <p class="card-text text-muted">Montage, reglages et controle qualite avant chaque depart.</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-6 mb-4">
-                        <div class="card border-0 h-100">
+                        <div class="card border-0 h-100 feature-card">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <i class="bi bi-headset text-warning" style="font-size: 1.5rem;"></i>
+                                    <i class="bi bi-heart-pulse text-warning" style="font-size: 1.5rem;"></i>
                                 </div>
-                                <h5 class="card-title">Support client</h5>
-                                <p class="card-text text-muted">Une équipe prête à vous aider 24 heures sur 24.</p>
+                                <h5 class="card-title">Confort longue distance</h5>
+                                <p class="card-text text-muted">Positions equilibrees, composants durables, plaisir constant.
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Creer un velo')
+@section('title', 'Mettre a jour un velo')
 
 @section('content')
     <div class="container py-5">
@@ -9,7 +9,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="/products">Velos</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Creer un velo</li>
+                <li class="breadcrumb-item active" aria-current="page">Mettre a jour un velo</li>
             </ol>
         </nav>
 
@@ -21,15 +21,16 @@
                 <!-- Form Card -->
                 <div class="card shadow-sm border-0">
                     <div class="card-body p-4">
-                        <form action="{{ route('products.store') }}" method="POST">
+                        <form action="{{ route('products.update', $product) }}" method="POST">
                             @csrf
+                            @method('PUT')
 
                             <!-- Nom -->
                             <div class="mb-4">
                                 <label for="name" class="form-label fw-semibold">
                                     <i class="bi bi-type me-2 text-primary"></i>Nom du velo
                                 </label>
-                                <input type="text" name="name" id="name" value="{{ old('name') }}"
+                                <input type="text" name="name" id="name" value="{{ old('name', $OBJproduct->name) }}"
                                     class="form-control @error('name') is-invalid @enderror"
                                     placeholder="Ex: Velo route Aero X1" required>
                                 @error('name')
@@ -44,8 +45,8 @@
                                 </label>
                                 <textarea name="description" id="description" rows="4"
                                     class="form-control @error('description') is-invalid @enderror"
-                                    placeholder="Cadre, groupe, freins, usage recommande..."
-                                    required>{{ old('description') }}</textarea>
+                                    placeholder="Décrivez votre produit en détail..."
+                                    required>{{ old('description', $OBJproduct->description) }}</textarea>
                                 @error('description')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
@@ -58,7 +59,8 @@
                                         <i class="bi bi-currency-euro me-2 text-primary"></i>Prix (€)
                                     </label>
                                     <div class="input-group">
-                                        <input type="number" name="price" id="price" value="{{ old('price') }}"
+                                        <input type="number" name="price" id="price"
+                                            value="{{ old('price', $OBJproduct->price) }}"
                                             class="form-control @error('price') is-invalid @enderror" placeholder="0.00"
                                             step="0.01" min="0" required>
                                         <span class="input-group-text bg-light">€</span>
@@ -72,7 +74,8 @@
                                     <label for="stock" class="form-label fw-semibold">
                                         <i class="bi bi-box me-2 text-primary"></i>Stock
                                     </label>
-                                    <input type="number" name="stock" id="stock" value="{{ old('stock') }}"
+                                    <input type="number" name="stock" id="stock"
+                                        value="{{ old('stock', $OBJproduct->stock) }}"
                                         class="form-control @error('stock') is-invalid @enderror"
                                         placeholder="Quantité disponible" min="0" required>
                                     @error('stock')
@@ -84,7 +87,8 @@
                                 <label for="category_id" class="form-label fw-semibold">
                                     <i class="bi bi-bookmark-star me-2 text-primary"></i>Categorie
                                 </label>
-                                <input type="number" name="category_id" id="category_id" value="{{ old('category_id') }}"
+                                <input type="number" name="category_id" id="category_id"
+                                    value="{{ old('category_id', $OBJproduct->category_id) }}"
                                     class="form-control @error('category_id') is-invalid @enderror"
                                     placeholder="Identifiant categorie" min="0" required>
                                 @error('category_id')
@@ -96,7 +100,7 @@
                                 <div class="form-check form-switch p-0">
                                     <input type="hidden" name="active" value="0">
                                     <input class="form-check-input" type="checkbox" name="active" id="active" value="1"
-                                        @checked(old('active'))>
+                                        @checked(old('active', $OBJproduct->status))>
                                     <label class="form-check-label fw-semibold ms-2" for="active">
                                         <i class="bi bi-toggle2-on me-2 text-success"></i>Velo actif
                                     </label>
@@ -108,13 +112,17 @@
                             <hr class="my-4">
 
                             <!-- Action Buttons -->
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="/products" class="btn btn-outline-secondary btn-lg">
-                                    <i class="bi bi-arrow-left me-2"></i>Annuler
-                                </a>
-                                <button type="submit" class="btn btn-primary btn-lg">
-                                    <i class="bi bi-check-circle me-2"></i>Creer le velo
-                                </button>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                                <div class="d-flex gap-2">
+                                    <a href="/products" class="btn btn-outline-secondary btn-lg">
+                                        <i class="bi bi-arrow-left me-2"></i>Retour
+                                    </a>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="bi bi-check-circle me-2"></i>Mettre a jour
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -126,9 +134,9 @@
                         <i class="bi bi-info-circle me-3" style="font-size: 1.5rem;"></i>
                         <div>
                             <strong>Besoin d'aide ?</strong>
-                            <p class="mb-0 mt-1">Visez la precision: taille, groupe, freinage et usage. Le velo sera ajoute
-                                au
-                                catalogue apres validation.</p>
+                            <p class="mb-0 mt-1">Verifiez la compatibilite, la taille et les composants. Le velo sera mis a
+                                jour
+                                apres validation.</p>
                         </div>
                     </div>
                 </div>

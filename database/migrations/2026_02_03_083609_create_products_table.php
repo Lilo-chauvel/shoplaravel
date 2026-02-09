@@ -20,8 +20,9 @@ return new class extends Migration
             $table->integer('stock')->unsigned();
             $table->boolean('status')->default(true);
 
-            $table->foreignId('category_id')->constrained();
-            
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Produits - ShopLaravel')
+@section('title', 'Velos - VeloSprint')
 
 @section('content')
     <div class="container-lg py-5">
         <!-- Page Header -->
         <section class="text-center mb-5">
-            <h1 class="display-4 fw-bold mb-3">Nos Produits</h1>
-            <p class="lead text-muted">Découvrez notre sélection exclusive de produits de qualité</p>
+            <h1 class="display-4 fw-bold mb-3">Nos velos</h1>
+            <p class="lead text-muted">Route, gravel, urbain. Des velos affutes pour vous pousser plus loin.</p>
         </section>
         @forelse ($products as $product)
             @if ($loop->first)
@@ -16,15 +16,22 @@
 
                 <!-- Product Card -->
                 <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card border-0 h-100">
-                        <!-- Product Image -->
-                        <div class="bg-light p-4 text-center"
-                            style="min-height: 200px; display: flex; align-items: center; justify-content: center;">
-                            <div>
-                                <i class="bi bi-image text-muted" style="font-size: 2rem;"></i>
-                                <p class="text-muted small mt-2 mb-0">{{ $product->name }}</p>
-                            </div>
-                        </div>
+                    <div class="card border-0 h-100 shadow-sm feature-card">
+                        <!-- Product Image clickable for view -->
+                        <a href="{{ route('products.show', $product->id) }}" class="text-decoration-none">
+                            @if($product->image)
+                                <img src="{{ $product->image }}" class="card-img-top" alt="{{ $product->name }}"
+                                    style="height: 250px; object-fit: cover;">
+                            @else
+                                <div class="bg-light p-4 text-center d-flex align-items-center justify-content-center"
+                                    style="min-height: 250px;">
+                                    <div>
+                                        <i class="bi bi-image text-muted" style="font-size: 2rem;"></i>
+                                        <p class="text-muted small mt-2 mb-0">{{ $product->name }}</p>
+                                    </div>
+                                </div>
+                            @endif
+                        </a>
 
                         <!-- Product Info -->
                         <div class="card-body">
@@ -57,10 +64,24 @@
                                 @endif
                             </div>
 
-                            <!-- Action Button -->
-                            <button class="btn btn-gradient btn-sm w-100">
-                                <i class="bi bi-cart-plus icon-sm me-2"></i> Ajouter au panier
-                            </button>
+                            <!-- Action Buttons -->
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-gradient btn-sm flex-grow-1">
+                                    <i class="bi bi-cart-plus icon-sm me-2"></i> Ajouter au panier
+                                </button>
+                                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-outline-secondary btn-sm">
+                                    <i class="bi bi-pencil icon-sm"></i>
+                                </a>
+                                <form action="{{ route('products.destroy', $product->id) }}" method="POST"
+                                    style="display: inline;"
+                                    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                        <i class="bi bi-trash icon-sm"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,10 +92,10 @@
         @empty
             <!-- Empty State -->
             <div class="alert alert-info text-center py-5" role="alert">
-                <i class="bi bi-inbox" style="font-size: 3rem; color: #0dcaf0;"></i>
-                <h4 class="mt-3">Aucun produit disponible</h4>
-                <p class="mb-3 text-muted">Les produits seront bientôt disponibles. Revenez plus tard !</p>
-                <a href="{{ route('home') }}" class="btn btn-primary">Retour à l'accueil</a>
+                <i class="bi bi-bicycle" style="font-size: 3rem; color: #1f7a62;"></i>
+                <h4 class="mt-3">Le peloton arrive</h4>
+                <p class="mb-3 text-muted">Nos velos sont en preparation atelier. Revenez tres vite.</p>
+                <a href="{{ route('home') }}" class="btn btn-gradient">Retour a l'accueil</a>
             </div>
         @endforelse
     </div>
