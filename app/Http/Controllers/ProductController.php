@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
+use DB;
 use Error;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('category')->get();
         return view('products.index', compact('products'));
     }
 
@@ -23,7 +25,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $categories = Category::all();
+        return view('products.create',compact('categories'));
     }
 
     /**
@@ -53,7 +56,7 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        $productSearch = Product::where('id', '=', $id)->firstOrFail();
+        $productSearch = Product::where('id', '=', $id)->orWhere('slug', '=', $id)->with('category')->firstOrFail();
         return view('products.search', compact('productSearch', 'id'));
     }
 
@@ -63,7 +66,8 @@ class ProductController extends Controller
     public function edit(string $product)
     {
         $OBJproduct = Product::where('id', '=', $product)->first();
-        return view('products.edit', compact('product', 'OBJproduct'));
+        $categories = Category::all();
+        return view('products.edit', compact('product', 'OBJproduct','categories'));
     }
 
     /**
@@ -71,16 +75,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-            try {
+        // dd($request->input('name'));
+        try {
+                
             Product::where('id', '=', $id)->update([
                 'name' => $request->input('name'),
                 'description' => $request->input('description'),
                 'price' => $request->input('price'),
                 'stock' => $request->input('stock'),
-                'active' => $request->boolean('active'),
+                'status' => $request->boolean('active'),
                 'category_id' => $request->input('category_id')
             ]);
-            $product = Product::find($id, ['*']);
+            $product = Product::find($id, 'id');
 
             return redirect()->route('products.show', $id)
                 ->with('newProductName', 'Votre produit ' . $product->name . ' a bien était mise à jour.')->with('color', 'bg-success');

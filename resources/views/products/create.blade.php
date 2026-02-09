@@ -80,13 +80,16 @@
                                     @enderror
                                 </div>
                             </div>
+
                             <div class="col-md-12 mb-4">
                                 <label for="category_id" class="form-label fw-semibold">
                                     <i class="bi bi-bookmark-star me-2 text-primary"></i>Categorie
                                 </label>
-                                <input type="number" name="category_id" id="category_id" value="{{ old('category_id') }}"
-                                    class="form-control @error('category_id') is-invalid @enderror"
-                                    placeholder="Identifiant categorie" min="0" required>
+                                <select name="category_id" id="category_id">
+                                    @foreach ($categories as $category)
+                                           <option value="{{ $category->id }}"> {{ $category->name }}</option>
+                                    @endforeach
+                                </select>
                                 @error('category_id')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror

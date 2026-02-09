@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductController2;
@@ -22,3 +23,4 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
 
 Route::resource('/products', ProductController::class);
 
+Route::resource('/categories', CategoryController::class);

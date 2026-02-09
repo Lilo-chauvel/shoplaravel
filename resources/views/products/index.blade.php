@@ -64,6 +64,10 @@
                                 @endif
                             </div>
 
+                            <div>
+                                    {{ $product->category->name }} 
+                            </div>
+
                             <!-- Action Buttons -->
                             <div class="d-flex gap-2">
                                 <button class="btn btn-gradient btn-sm flex-grow-1">

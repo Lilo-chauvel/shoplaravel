@@ -73,6 +73,10 @@
 
                                 <hr class="my-4">
 
+                                <div>
+                                    {{ $productSearch->category->name }}
+                                </div>
+
                                 <!-- Price and Stock -->
                                 <div class="row g-3 mb-4">
                                     @if(isset($productSearch->price))
