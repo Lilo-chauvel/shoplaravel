@@ -9,64 +9,50 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
 
-    }
+public function index()
+{
+        $cart = session('cart',[]);
+        $products = Product::whereIn('id', '=', array_keys($cart))->get();
+        foreach($products as $product)
+                {
+                        $product->quantity = $cart
+                }
+        return view('cart.index',compact('cart','products'));
+}
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
 
-    }
+public function add($product)
+{
+        // Récupérer le panier depuis la session ou un tableau vide
+        $cart = session()->get('cart', []);
+        $product = Product::where('id', '=', $product)->first();
+        // Si le produit existe déjà, incrémenter la quantité
+        if (isset($cart[$product])) {
+                $cart[$product]++;
+        } else {
+                // Sinon, ajouter le produit avec quantité 1
+                $cart[$product] = 1;
+        }
+        // Sauvegarder le panier en session
+        session()->put('cart', $cart);
+        return redirect()->route('cart.index');
+}
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validated = $request->validate(
-            [
-                'product' => 'required|string',
-                'quantity' => 'required|numeric|min:1'
-            ]
-        );
-    }
+public function update()
+{
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
+}
 
-    }
+public function remove()
+{
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+}
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+public function clear()
+{
+        session()->put('cart', []);
+                return redirect()->route('cart.index');
+}
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
