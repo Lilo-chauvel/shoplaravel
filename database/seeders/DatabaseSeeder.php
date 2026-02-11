@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Http\Controllers\CartItems;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,6 +23,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             OrdersSeeder::class,
             Order_itemsSeeder::class,
+            CartSeeder::class,
+            CartsItemsSeeder::class,
         ]);
         \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }

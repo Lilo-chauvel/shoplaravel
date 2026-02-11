@@ -17,10 +17,10 @@
 
     <style>
         :root {
-            --brand-ink: #0f1f1a;
-            --brand-forest: #145a4b;
-            --brand-moss: #1f7a62;
-            --brand-amber: #ff8a1f;
+            --brand-ink: #0a1511;
+            --brand-forest: #0d3d2f;
+            --brand-moss: #155c4b;
+            --brand-amber: #d67000;
             --brand-sand: #f6f4ef;
             --brand-ice: #f2f7f5;
         }
@@ -60,10 +60,21 @@
             box-shadow: 0 12px 30px rgba(15, 31, 26, 0.1);
         }
 
-        .btn-gradient:hover {
+        .btn-gradient:hover,
+        .btn-gradient:focus {
             transform: translateY(-2px);
             box-shadow: 0 18px 40px rgba(15, 31, 26, 0.18);
             color: white;
+        }
+
+        .btn-gradient:focus {
+            outline: 3px solid var(--brand-ink);
+            outline-offset: 3px;
+        }
+
+        .btn-outline-light:focus {
+            outline: 3px solid #fff;
+            outline-offset: 3px;
         }
 
         .feature-card {
@@ -77,7 +88,7 @@
         }
 
         .hero-splash {
-            background: linear-gradient(135deg, rgba(20, 90, 75, 0.95), rgba(31, 122, 98, 0.9));
+            background: linear-gradient(135deg, rgba(13, 61, 47, 0.95), rgba(21, 92, 75, 0.92));
             color: white;
             border-radius: 30px;
             position: relative;

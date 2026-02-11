@@ -11,15 +11,16 @@
 }
 
 :root {
-    --brand-ink: #0f1f1a;
-    --brand-forest: #145a4b;
-    --brand-moss: #1f7a62;
-    --brand-amber: #ff8a1f;
+    --brand-ink: #0a1511;
+    --brand-forest: #0d3d2f;
+    --brand-moss: #155c4b;
+    --brand-amber: #d67000;
     --brand-sand: #f6f4ef;
     --brand-ice: #f2f7f5;
-    --brand-border: #e2e8e4;
+    --brand-border: #c5ccc7;
     --brand-shadow: 0 18px 40px rgba(15, 31, 26, 0.12);
     --brand-soft-shadow: 0 12px 30px rgba(15, 31, 26, 0.08);
+    --brand-focus: #0d3d2f;
     --bs-primary: var(--brand-forest);
     --bs-secondary: var(--brand-moss);
     --bs-warning: var(--brand-amber);
@@ -66,20 +67,34 @@ h3,
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.btn-gradient:hover {
+.btn-gradient:hover,
+.btn-gradient:focus {
     transform: translateY(-2px);
     color: #fff;
     box-shadow: var(--brand-shadow);
 }
 
+.btn-gradient:focus {
+    outline: 3px solid var(--brand-ink);
+    outline-offset: 3px;
+}
+
 .btn-outline-primary {
     border-color: var(--brand-forest);
+    border-width: 2px;
     color: var(--brand-forest);
 }
 
-.btn-outline-primary:hover {
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
     background: var(--brand-forest);
+    border-color: var(--brand-forest);
     color: #fff;
+}
+
+.btn-outline-primary:focus {
+    outline: 3px solid var(--brand-focus);
+    outline-offset: 2px;
 }
 
 .hero-splash {
@@ -131,8 +146,9 @@ h3,
 }
 
 .badge-soft {
-    background: rgba(20, 90, 75, 0.1);
-    color: var(--brand-forest);
+    background: rgba(13, 61, 47, 0.15);
+    color: var(--brand-ink);
+    border: 1px solid var(--brand-forest);
     border-radius: 999px;
     padding: 0.35rem 0.85rem;
     font-weight: 600;
@@ -142,8 +158,32 @@ h3,
     text-transform: uppercase;
     letter-spacing: 0.2em;
     font-size: 0.75rem;
-    font-weight: 600;
-    color: rgba(15, 31, 26, 0.6);
+    font-weight: 700;
+    color: var(--brand-ink);
+}
+
+.hero-splash .section-label {
+    color: #fff;
+    opacity: 0.9;
+}
+
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 3px solid var(--brand-focus);
+    outline-offset: 2px;
+}
+
+a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+}
+
+a:hover {
+    text-decoration-thickness: 2px;
 }
 
 .footer-band {

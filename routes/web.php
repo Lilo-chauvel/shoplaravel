@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductController2;
+use Database\Seeders\Order_itemsSeeder;
 use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +28,5 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::resource('/products', ProductController::class);
 
 Route::resource('/categories', CategoryController::class);
+Route::resource('/carts', CartController::class);
+Route::resource('/carts_items', OrderItemsController::class);

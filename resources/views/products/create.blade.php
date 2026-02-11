@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Creer un velo')
+@section('title', 'Ajouter un vélo')
 
 @section('content')
     <div class="container py-5">
@@ -9,7 +9,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="/products">Velos</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Creer un velo</li>
+                <li class="breadcrumb-item active" aria-current="page">Ajouter un vélo</li>
             </ol>
         </nav>
 
@@ -23,6 +23,8 @@
                     <div class="card-body p-4">
                         <form action="{{ route('products.store') }}" method="POST">
                             @csrf
+
+                            <!-- /resources/views/post/create.blade.php -->
 
                             <!-- Nom -->
                             <div class="mb-4">
@@ -45,7 +47,7 @@
                                 <textarea name="description" id="description" rows="4"
                                     class="form-control @error('description') is-invalid @enderror"
                                     placeholder="Cadre, groupe, freins, usage recommande..."
-                                    required>{{ old('description') }}</textarea>
+                                    >{{ old('description') }}</textarea>
                                 @error('description')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
@@ -87,7 +89,7 @@
                                 </label>
                                 <select name="category_id" id="category_id">
                                     @foreach ($categories as $category)
-                                           <option value="{{ $category->id }}"> {{ $category->name }}</option>
+                                        <option value="{{ $category->id }}"> {{ $category->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('category_id')

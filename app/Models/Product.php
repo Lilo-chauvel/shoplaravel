@@ -18,9 +18,22 @@ class Product extends Model
         'category_id'
     ];
 
+    protected $casts = [
+        'price' => 'decimal:2',
+        'status' => 'boolean',
+    ];
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Un produit a plusieurs articles de commande.
+     */
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItems::class);
     }
 
     protected static function booted(): void
@@ -37,5 +50,4 @@ class Product extends Model
             }
         });
     }
-    
 }

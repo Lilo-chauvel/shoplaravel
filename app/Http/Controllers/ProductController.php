@@ -28,27 +28,24 @@ class ProductController extends Controller
         $categories = Category::all();
         return view('products.create',compact('categories'));
     }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        try {
-            $product = Product::createOrFirst([
-                'name' => $request->input('name'),
-                'description' => $request->input('description'),
-                'price' => $request->input('price'),
-                'stock' => $request->input('stock'),
-                'active' => $request->boolean('active'),
-                'category_id' => $request->input('category_id')
-            ]);
-            return redirect()->route('products.index')
-                ->with('newProductName', 'Votre produit ' . $product->name . ' a bien était créé.')->with('color', 'bg-success');
-        } catch (Exception) {
-            return redirect()->route('products.index')
-                ->with('newProductName', 'Votre produit ' . $request->input('name') . ' n\'a pas pu être créé. Vous avez dû faire une erreur')->with('color', 'bg-danger');
-        }
+        $validated = $request->validate([
+           'name'=> 'required|string|max:255',
+           'price'=>'required|numeric|min:0',
+           'description' => 'nullable|string',
+           'stock' => 'required|integer|min:0',
+           'active' => 'required|boolean',
+           'category_id' => 'required|exists:categories,id'
+        ]);
+
+        Product::create($validated);
+
+        return redirect()->route('products.index')
+            ->with('success', 'Votre produit ' . $request->name . ' a bien était créé.')->with('color', 'bg-success');
     }
 
     /**
@@ -75,7 +72,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd($request->input('name'));
         try {
                 
             Product::where('id', '=', $id)->update([
@@ -89,11 +85,11 @@ class ProductController extends Controller
             $product = Product::find($id, 'id');
 
             return redirect()->route('products.show', $id)
-                ->with('newProductName', 'Votre produit ' . $product->name . ' a bien était mise à jour.')->with('color', 'bg-success');
+                ->with('success', 'Votre produit ' . $product->name . ' a bien était mise à jour.')->with('color', 'bg-success');
 
         } catch (Exception) {
             return redirect()->route('products.index')
-                ->with('newProductName', 'Votre produit ' . $request->input('name') . ' n\'a pas pu être mise à jour. Vous avez dû faire une erreur')->with('color', 'bg-danger');
+                ->with('success', 'Votre produit ' . $request->input('name') . ' n\'a pas pu être mise à jour. Vous avez dû faire une erreur')->with('color', 'bg-danger');
         }
     }
 

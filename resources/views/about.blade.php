@@ -64,7 +64,7 @@
         </section>
 
         <!-- Stats Section -->
-        <section class="row hero-splash rounded-3 p-5 text-white mb-5">
+        <section class="row hero-splash rounded-3 p-5 text-black mb-5">
             <div class="col-md-4 text-center mb-4 mb-md-0">
                 <h3 class="display-6 fw-bold">12K+</h3>
                 <p>Clients qui roulent deja</p>

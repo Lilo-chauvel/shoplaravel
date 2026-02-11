@@ -20,13 +20,13 @@
 
     <style>
         :root {
-            --brand-ink: #0f1f1a;
-            --brand-forest: #145a4b;
-            --brand-moss: #1f7a62;
-            --brand-amber: #ff8a1f;
+            --brand-ink: #0a1511;
+            --brand-forest: #0d3d2f;
+            --brand-moss: #155c4b;
+            --brand-amber: #d67000;
             --brand-sand: #f6f4ef;
             --brand-ice: #f2f7f5;
-            --brand-border: #e2e8e4;
+            --brand-border: #c5ccc7;
             --bs-body-font-family: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
             --bs-primary: var(--brand-forest);
             --bs-secondary: var(--brand-moss);
@@ -48,6 +48,28 @@
             font-size: 1.75rem;
             letter-spacing: 0.06em;
             color: var(--brand-ink);
+            text-decoration: none;
+        }
+
+        .navbar-brand:focus {
+            outline: 3px solid var(--brand-forest);
+            outline-offset: 4px;
+        }
+
+        .nav-link {
+            color: var(--brand-ink) !important;
+            font-weight: 500;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .nav-link:hover {
+            color: var(--brand-forest) !important;
+        }
+
+        .nav-link:focus {
+            outline: 3px solid var(--brand-forest);
+            outline-offset: 4px;
         }
 
         .gradient-text {
@@ -134,12 +156,12 @@
         $flashSuccess = session('success');
         $flashError = session('error');
 
-        if (!$flashSuccess && session('newProductName') && session('color') === 'bg-success') {
-            $flashSuccess = session('newProductName');
+        if (!$flashSuccess && session('success') && session('color') === 'bg-success') {
+            $flashSuccess = session('success');
         }
 
-        if (!$flashError && session('newProductName') && session('color') === 'bg-danger') {
-            $flashError = session('newProductName');
+        if (!$flashError && session('success') && session('color') === 'bg-danger') {
+            $flashError = session('success');
         }
     @endphp
 
@@ -219,15 +241,17 @@
         }
 
         .alert-success {
-            background: linear-gradient(135deg, rgba(20, 90, 75, 0.2) 0%, rgba(31, 122, 98, 0.2) 100%);
-            color: #0f1f1a;
-            border-left: 4px solid #1f7a62;
+            background: #e8f4f0;
+            color: #0a1511;
+            border: 2px solid var(--brand-moss);
+            border-left: 5px solid var(--brand-moss);
         }
 
         .alert-danger {
-            background: linear-gradient(135deg, rgba(255, 138, 31, 0.2) 0%, rgba(255, 138, 31, 0.1) 100%);
+            background: #fef3e8;
             color: #3b1c00;
-            border-left: 4px solid #ff8a1f;
+            border: 2px solid var(--brand-amber);
+            border-left: 5px solid var(--brand-amber);
         }
     </style>
 
@@ -237,7 +261,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-top mt-5" style="background: #0f1f1a; color: #fff;">
+    <footer class="border-top mt-5" style="background: #0a1511; color: #fff;">
         <div class="container-lg py-5">
             <div class="row mb-4">
                 <div class="col-md-4 mb-4 mb-md-0">
@@ -245,28 +269,40 @@
                     <p class="text-white-50">Boutique velo sportive, performance et design pour chaque sortie.</p>
                 </div>
                 <div class="col-md-4 mb-4 mb-md-0">
-                    <h6>Navigation</h6>
+                    <h6 class="text-white">Navigation</h6>
                     <ul class="list-unstyled">
-                        <li><a href="{{ route('home') }}" class="text-decoration-none text-white-50">Accueil</a></li>
-                        <li><a href="{{ route('products.index') }}" class="text-decoration-none text-white-50">Velos</a>
+                        <li class="mb-2"><a href="{{ route('home') }}" class="footer-link text-white"
+                                style="text-decoration: underline;">Accueil</a></li>
+                        <li class="mb-2"><a href="{{ route('products.index') }}" class="footer-link text-white"
+                                style="text-decoration: underline;">Velos</a>
                         </li>
-                        <li><a href="{{ route('about') }}" class="text-decoration-none text-white-50">A propos</a></li>
+                        <li class="mb-2"><a href="{{ route('about') }}" class="footer-link text-white"
+                                style="text-decoration: underline;">A propos</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h6>Contact</h6>
-                    <p class="text-white-50 small">
-                        Email: hello@velosprint.fr<br>
-                        Tel: +33 (0)1 45 82 19 90
+                    <h6 class="text-white">Contact</h6>
+                    <p class="text-white small">
+                        Email: <a href="mailto:hello@velosprint.fr" class="text-white"
+                            style="text-decoration: underline;">hello@velosprint.fr</a><br>
+                        Tel: <a href="tel:+33145821990" class="text-white" style="text-decoration: underline;">+33 (0)1
+                            45 82 19 90</a>
                     </p>
                 </div>
             </div>
             <hr class="border-secondary">
-            <div class="text-center text-white-50 small">
+            <div class="text-center text-white small">
                 <p>&copy; {{ date('Y') }} VeloSprint. Tous droits reserves. | Pedalez plus vite, plus loin.</p>
             </div>
         </div>
     </footer>
+
+    <style>
+        .footer-link:focus {
+            outline: 3px solid #fff;
+            outline-offset: 3px;
+        }
+    </style>
 
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

@@ -7,20 +7,16 @@
         @if($shopInfo['isOpen'])
             <!-- Hero Section -->
             <section class="hero-splash p-4 p-lg-5 mb-5 text-center">
-                <div class="section-label mb-3">Velo de sport</div>
                 <h1 class="display-3 fw-bold mb-3">
                     Pedalez plus vite avec <span class="gradient-text">{{ $shopInfo['name'] }}</span>
                 </h1>
-                <p class="lead text-white-50 mb-4 mx-auto" style="max-width: 620px;">
+                <p class="lead text-black-50 mb-4 mx-auto" style="max-width: 620px;">
                     Velos de route, gravel et urbains affutes pour la performance. Design leger, sensations nettes, achat
                     fluide.
                 </p>
                 <div class="d-flex flex-wrap justify-content-center gap-3">
                     <a href="{{ route('products.index') }}" class="btn btn-gradient btn-lg">
                         Decouvrir les velos
-                    </a>
-                    <a href="{{ route('about') }}" class="btn btn-outline-light btn-lg">
-                        Notre atelier
                     </a>
                 </div>
             </section>
