@@ -14,45 +14,42 @@ class CategoriesSeeder extends Seeder
     {
         // Les produits doivent être truncatés avant !
         DB::table('categories')->truncate();
-        DB::table('categories')->insert(
+        DB::table('categories')->insert([
             [
-                [
-                    'name' => 'Clothing',
-                    'slug' => 'clothing',
-                    'description' => 'A collection of Eloquent hoodies and Artisan T-shirts to proudly wear the colors of your favorite framework.',
-                    'created_at'=>now()->subDays(10),
-                    'updated_at'=>now()->subDays(10),
-                ],
-                [
-                    'name' => 'Accessories',
-                    'slug' => 'accessories',
-                    'description' => 'Coffee mugs and essential Blade stickers to personalize your developer workspace.',
-                    'created_at'=>now()->addDays(10),
-                    'updated_at' => now()->addMonths(2)
-                ],
-                [
-                    'name' => 'Electronics',
-                    'slug' => 'electronics',
-                    'description' => 'A selection of tech gear and gadgets to boost your productivity (Information not present in the sources).',
-                    'updated_at'=>now()->subDays(10),
-                    'created_at' => now(),
-                ],
-                [
-                    'name' => 'Books',
-                    'slug' => 'books',
-                    'description' => null,
-                    'updated_at'=>now()->subDays(10),
-                    'created_at' => now()->subDays(25),
-                ],
-                [
-                    'name' => 'Services',
-                    'slug' => 'services',
-                    'description' => 'Support and expertise for deploying your applications on platforms such as Laravel Cloud or Forge.',
-                    'updated_at'=>now()->subDays(10),
-                    'created_at' => now()->subMonths(2),
-                ],
-            ]
-
-        );
+                'name' => 'Vélo de route',
+                'slug' => 'velo-de-route',
+                'description' => 'Vélos conçus pour la vitesse et la performance sur route.',
+                'created_at'=>now()->subDays(10),
+                'updated_at'=>now()->subDays(10),
+            ],
+            [
+                'name' => 'Vélo gravel',
+                'slug' => 'velo-gravel',
+                'description' => 'Vélos polyvalents pour routes et chemins.',
+                'created_at'=>now()->addDays(10),
+                'updated_at' => now()->addMonths(2)
+            ],
+            [
+                'name' => 'Vélo de montagne',
+                'slug' => 'velo-de-montagne',
+                'description' => 'VTT pour terrains accidentés et sentiers.',
+                'updated_at'=>now()->subDays(10),
+                'created_at' => now(),
+            ],
+            [
+                'name' => 'Vélo urbain',
+                'slug' => 'velo-urbain',
+                'description' => 'Vélos adaptés à la ville et aux déplacements quotidiens.',
+                'updated_at'=>now()->subDays(10),
+                'created_at' => now()->subDays(25),
+            ],
+            [
+                'name' => 'Vélo électrique',
+                'slug' => 'velo-electrique',
+                'description' => 'Vélos à assistance électrique pour tous les usages.',
+                'updated_at'=>now()->subDays(10),
+                'created_at' => now()->subMonths(2),
+            ],
+        ]);
     }
 }

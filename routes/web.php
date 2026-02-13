@@ -2,12 +2,9 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\OrderItemsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductController2;
-use Database\Seeders\Order_itemsSeeder;
+use App\Http\Controllers\UserController;
 use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
@@ -33,3 +30,6 @@ Route::post('/cart/add/{product}', [CartController::class,'add'])->name('cart.ad
 Route::patch('/cart/update/{product}', [CartController::class,'update'])->name('cart.update');
 Route::delete('/cart/remove/{product}', [CartController::class,'remove'])->name('cart.remove');
 Route::delete('/cart/clear', [CartController::class,'clear'])->name('cart.clear');
+
+Route::get('/inscription', [UserController::class, 'register'])->name('user.register');
+Route::post('/inscription', [UserController::class, 'registerValidation'])->name('user.registerValidation');

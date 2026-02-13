@@ -65,14 +65,17 @@
                             </div>
 
                             <div>
-                                    {{ $product->category->name }} 
+                                <p>Categorie : {{ $product->category->name }}</p>
                             </div>
 
                             <!-- Action Buttons -->
                             <div class="d-flex gap-2">
-                                <button class="btn btn-gradient btn-sm flex-grow-1">
-                                    <i class="bi bi-cart-plus icon-sm me-2"></i> Ajouter au panier
-                                </button>
+                                <form action="{{ route('cart.add', $product) }}" method="POST">
+                                    @csrf
+                                    <button type="sumit" class="btn btn-gradient btn-sm flex-grow-1">
+                                        <i class="bi bi-cart-plus icon-sm me-2"></i> Ajouter au panier
+                                    </button>
+                                </form>
                                 <a href="{{ route('products.edit', $product->id) }}" class="btn btn-outline-secondary btn-sm">
                                     <i class="bi bi-pencil icon-sm"></i>
                                 </a>
