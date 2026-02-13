@@ -8,6 +8,7 @@
             <!-- Hero Section -->
             <section class="hero-splash p-4 p-lg-5 mb-5 text-center">
                 <h1 class="display-3 fw-bold mb-3">
+                <h1 class="display-3 fw-bold mb-3">
                     Pedalez plus vite avec <span class="gradient-text">{{ $shopInfo['name'] }}</span>
                 </h1>
                 <p class="lead text-black-50 mb-4 mx-auto" style="max-width: 620px;">

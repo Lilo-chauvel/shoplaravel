@@ -150,31 +150,34 @@
                 </ul>
                 @auth
                     <div class="d-flex gap-2 ms-3">
-                            <a href="{{ route('products.index') }}" class="btn btn-outline-primary btn-sm">Deconnexion</a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-primary btn-sm">Deconnexion</button>
+                        </form>
                     </div>
                 @else
                     <div class="d-flex gap-2 ms-3">
-                        <a href="{{ route('products.index') }}" class="btn btn-outline-primary btn-sm">Connexion</a>
-                        <a href="{{ route('products.index') }}" class="btn btn-gradient btn-sm">Inscription</a>
+                        <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm">Connexion</a>
+                        <a href="{{ route('register') }}" class="btn btn-gradient btn-sm">Inscription</a>
                     </div>
                 @endauth
-               
+
             </div>
         </div>
     </nav>
 
     <!-- Flash Messages -->
     @php
-$flashSuccess = session('success');
-$flashError = session('error');
+        $flashSuccess = session('success');
+        $flashError = session('error');
 
-if (!$flashSuccess && session('success') && session('color') === 'bg-success') {
-    $flashSuccess = session('success');
-}
+        if (!$flashSuccess && session('success') && session('color') === 'bg-success') {
+            $flashSuccess = session('success');
+        }
 
-if (!$flashError && session('success') && session('color') === 'bg-danger') {
-    $flashError = session('success');
-}
+        if (!$flashError && session('success') && session('color') === 'bg-danger') {
+            $flashError = session('success');
+        }
     @endphp
 
     @if ($flashSuccess || $flashError || $errors->any())

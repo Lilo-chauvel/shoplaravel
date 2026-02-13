@@ -23,8 +23,6 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             OrdersSeeder::class,
             Order_itemsSeeder::class,
-            CartSeeder::class,
-            CartsItemsSeeder::class,
         ]);
         \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
