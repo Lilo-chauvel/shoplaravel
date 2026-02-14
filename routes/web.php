@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
@@ -12,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 // Routes publiques (accessibles par tous)
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
-Route::resource('/categories', CategoryController::class)->only(['index', 'show']);
-Route::resource('/products', ProductController::class)->only(['index', 'show']);
+Route::resource('/categories', CategoryController::class);
+Route::resource('/products', ProductController::class);
 
 // Routes d'authentification (uniquement pour les invités)
 Route::middleware('guest')->group(function () {
@@ -26,9 +28,11 @@ Route::middleware('guest')->group(function () {
 // Routes protégées (uniquement pour les utilisateurs authentifiés)
 Route::middleware('auth')->group(function () {
     // Routes d'administration
-    Route::resource('/categories', CategoryController::class)->except(['index', 'show']);
-    Route::resource('/products', ProductController::class)->except(['index', 'show']);
-    
+    Route::middleware('admin')->prefix('admin')->name('admin.')->group(function(){
+        Route::get('/dashboard',[AdminDashboardController::class,'show']);
+        Route::resource('/categories', CategoryController::class)->except(['index', 'show']);
+        Route::resource('/products', AdminProductController::class);
+    }); 
     // Routes du panier
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');

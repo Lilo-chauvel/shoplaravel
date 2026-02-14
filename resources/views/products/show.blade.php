@@ -27,22 +27,21 @@
                         <!-- Product Image Section -->
                         <div class="col-md-5">
                             <div class="product-image-frame h-100">
-                                <a href="#"
-                                    class="image-zoom-trigger"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#productImageModal"
-                                    data-image-src="{{ $productSearch->image }}"
+                                <a href="#" class="image-zoom-trigger" data-bs-toggle="modal"
+                                    data-bs-target="#productImageModal" data-image-src="{{ $productSearch->image }}"
                                     aria-label="Voir l'image en grand">
-                                @if($productSearch->image)
-                                    <img src="{{ $productSearch->image }}" class="product-show-image" alt="{{ $productSearch->name }}">
-                                @else
-                                    <div class="bg-light p-4 text-center d-flex align-items-center justify-content-center h-100">
-                                        <div>
-                                            <i class="bi bi-image text-muted" style="font-size: 2rem;"></i>
-                                            <p class="text-muted small mt-2 mb-0">{{ $productSearch->name }}</p>
+                                    @if($productSearch->image)
+                                        <img src="{{ $productSearch->image }}" class="product-show-image"
+                                            alt="{{ $productSearch->name }}">
+                                    @else
+                                        <div
+                                            class="bg-light p-4 text-center d-flex align-items-center justify-content-center h-100">
+                                            <div>
+                                                <i class="bi bi-image text-muted" style="font-size: 2rem;"></i>
+                                                <p class="text-muted small mt-2 mb-0">{{ $productSearch->name }}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                @endif
+                                    @endif
                                 </a>
                             </div>
                         </div>
@@ -63,12 +62,12 @@
 
                                 <!-- Description -->
                                 @if(isset($productSearch->description))
-                                <div class="mb-4">
-                                    <h6 class="text-muted text-uppercase small fw-semibold mb-2">Description</h6>
-                                    <p class="text-secondary mb-0">
-                                        {{ $productSearch->description }}
-                                    </p>
-                                </div>
+                                    <div class="mb-4">
+                                        <h6 class="text-muted text-uppercase small fw-semibold mb-2">Description</h6>
+                                        <p class="text-secondary mb-0">
+                                            {{ $productSearch->description }}
+                                        </p>
+                                    </div>
                                 @endif
 
                                 <hr class="my-4">
@@ -80,39 +79,43 @@
                                 <!-- Price and Stock -->
                                 <div class="row g-3 mb-4">
                                     @if(isset($productSearch->price))
-                                    <div class="col-6">
-                                        <div class="p-3 bg-light rounded">
-                                            <small class="text-muted d-block mb-1">Prix unitaire</small>
-                                            <h4 class="mb-0 text-primary fw-bold">
-                                                {{ number_format($productSearch->price, 2, ',', ' ') }} €
-                                            </h4>
+                                        <div class="col-6">
+                                            <div class="p-3 bg-light rounded">
+                                                <small class="text-muted d-block mb-1">Prix unitaire</small>
+                                                <h4 class="mb-0 text-primary fw-bold">
+                                                    {{ number_format($productSearch->price, 2, ',', ' ') }} €
+                                                </h4>
+                                            </div>
                                         </div>
-                                    </div>
                                     @endif
 
                                     @if(isset($productSearch->stock))
-                                    <div class="col-6">
-                                        <div class="p-3 bg-light rounded">
-                                            <small class="text-muted d-block mb-1">Disponibilité</small>
-                                            <h4 class="mb-0 fw-bold {{ $productSearch->stock > 0 ? 'text-success' : 'text-danger' }}">
-                                                @if($productSearch->stock > 0)
-                                                    <i class="bi bi-check-circle me-1"></i>{{ $productSearch->stock }} en stock
-                                                @else
-                                                    <i class="bi bi-x-circle me-1"></i>Rupture
-                                                @endif
-                                            </h4>
+                                        <div class="col-6">
+                                            <div class="p-3 bg-light rounded">
+                                                <small class="text-muted d-block mb-1">Disponibilité</small>
+                                                <h4
+                                                    class="mb-0 fw-bold {{ $productSearch->stock > 0 ? 'text-success' : 'text-danger' }}">
+                                                    @if($productSearch->stock > 0)
+                                                        <i class="bi bi-check-circle me-1"></i>{{ $productSearch->stock }} en stock
+                                                    @else
+                                                        <i class="bi bi-x-circle me-1"></i>Rupture
+                                                    @endif
+                                                </h4>
+                                            </div>
                                         </div>
-                                    </div>
                                     @endif
                                 </div>
 
                                 <!-- Action Buttons -->
                                 <div class="d-grid gap-2 d-md-flex">
-                                    <button class="btn btn-gradient btn-lg flex-fill" 
-                                            {{ isset($productSearch->stock) && $productSearch->stock <= 0 ? 'disabled' : '' }}>
-                                        <i class="bi bi-cart-plus me-2"></i>
-                                        Ajouter au panier
-                                    </button>
+                                    <form action="{{ route('cart.add', $productSearch) }}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-gradient btn-lg flex-fill" {{ isset($productSearch->stock) && $productSearch->stock <= 0 ? 'disabled' : '' }}>
+                                            <i class="bi bi-cart-plus me-2"></i>
+                                            Ajouter au panier
+                                        </button>
+                                    </form>
+
                                     <a href="/products" class="btn btn-outline-secondary btn-lg">
                                         <i class="bi bi-arrow-left me-2"></i>
                                         Retour
@@ -152,12 +155,14 @@
     </div>
 
     <!-- Image Modal -->
-    <div class="modal fade" id="productImageModal" tabindex="-1" aria-labelledby="productImageModalLabel" aria-hidden="true">
+    <div class="modal fade" id="productImageModal" tabindex="-1" aria-labelledby="productImageModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content bg-dark">
                 <div class="modal-header border-0">
                     <h5 class="modal-title text-white" id="productImageModalLabel">{{ $productSearch->name }}</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-0">
                     <div class="modal-image-wrap">
@@ -213,7 +218,7 @@
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+            box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
         }
 
         .breadcrumb {

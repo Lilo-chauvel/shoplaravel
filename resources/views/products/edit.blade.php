@@ -21,7 +21,7 @@
                 <!-- Form Card -->
                 <div class="card shadow-sm border-0">
                     <div class="card-body p-4">
-                        <form action="{{ route('products.update', $product) }}" method="POST">
+                        <form action="{{ route('admin.products.update', $product) }}" method="POST">
                             @csrf
                             @method('PUT')
 

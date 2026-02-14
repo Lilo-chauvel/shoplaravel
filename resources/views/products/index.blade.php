@@ -76,10 +76,11 @@
                                         <i class="bi bi-cart-plus icon-sm me-2"></i> Ajouter au panier
                                     </button>
                                 </form>
-                                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-outline-secondary btn-sm">
+                                <a href="{{ route('admin.products.edit', $product->id) }}"
+                                    class="btn btn-outline-secondary btn-sm">
                                     <i class="bi bi-pencil icon-sm"></i>
                                 </a>
-                                <form action="{{ route('products.destroy', $product->id) }}" method="POST"
+                                <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST"
                                     style="display: inline;"
                                     onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
                                     @csrf
