@@ -84,6 +84,12 @@
                 <h3>Total commande : <span class="fw-bold gradient-text">{{ $total }}€</span></h3>
             </div>
             <div class="text-end">
+                <form action="{{ route('order.store') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-success"><i class="bi bi-trash"></i>Valider le panier</button>
+                </form>
+            </div>
+            <div class="text-end">
                 <form action="{{ route('cart.clear') }}" method="POST">
                     @csrf
                     @method('DELETE')

@@ -62,4 +62,9 @@ public function clear()
                 return redirect()->route('cart.index');
 }
 
+public function validate(Request $request)
+{
+        return redirect()->route('order.create');
+}
+
 }

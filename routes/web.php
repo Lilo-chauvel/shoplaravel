@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 // Routes publiques (accessibles par tous)
@@ -29,7 +30,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     // Routes d'administration
     Route::middleware('admin')->prefix('admin')->name('admin.')->group(function(){
-        Route::get('/dashboard',[AdminDashboardController::class,'show']);
+        Route::get('/dashboard',[AdminDashboardController::class,'show'])->name('dashboard');
         Route::resource('/categories', CategoryController::class)->except(['index', 'show']);
         Route::resource('/products', AdminProductController::class);
     }); 
@@ -39,6 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/cart/update/{product}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
     Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+    
+    //Route des commandes
+    Route::resource('/order',OrderController::class);
     
     // Déconnexion
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');

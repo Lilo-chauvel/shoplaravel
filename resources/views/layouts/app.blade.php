@@ -130,7 +130,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
         <div class="container-lg">
-            <a class="navbar-brand" href="{{ route('home') }}">
+            <a class="navbar-brand" href="{{ route('products.index') }}">
                 <i class="bi bi-bicycle me-2"></i>VeloSprint
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -147,20 +147,34 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('about') }}">A propos</a>
                     </li>
+                    @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('cart.index') }}">
+                                <i class="bi-cart"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('order.index') }}"><i class="bi-clock-history"></i></a>
+                        </li>
+                    @endauth
                 </ul>
-                @auth
-                    <div class="d-flex gap-2 ms-3">
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-outline-primary btn-sm">Deconnexion</button>
-                        </form>
-                    </div>
-                @else
-                    <div class="d-flex gap-2 ms-3">
-                        <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm">Connexion</a>
-                        <a href="{{ route('register') }}" class="btn btn-gradient btn-sm">Inscription</a>
-                    </div>
-                @endauth
+                <div class="d-flex gap-2 ms-3 align-items-center">
+                    @auth
+                        <div class="d-flex gap-2 ms-3">
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-primary btn-sm">Deconnexion</button>
+                            </form>
+                        </div>
+                        @if (auth()->user()->is_admin)
+                            <div class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.dashboard') }}">Admin</a>
+                            </div>
+                        @endif
+                    @else
+                            <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm">Connexion</a>
+                            <a href="{{ route('register') }}" class="btn btn-gradient btn-sm">Inscription</a>
+                    @endauth
+                </div>
 
             </div>
         </div>

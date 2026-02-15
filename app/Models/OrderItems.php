@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use app\Models\Order;
 
 class OrderItems extends Model
 {
@@ -18,6 +19,7 @@ class OrderItems extends Model
         'quantity',
         'price',
     ];
+
 
     protected $casts = [
         'price' => 'decimal:2',

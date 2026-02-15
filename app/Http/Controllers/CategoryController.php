@@ -12,7 +12,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::orderBy('id')->get();
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -20,7 +21,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -28,7 +29,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:20',
+            'description' => 'nullable|string'
+        ]);
+
+        Category::create($validated);
+
+        return redirect()->route('categories.index')
+            ->with('success', 'Votre categorie a bien ete creee.')
+            ->with('color', 'bg-success');
     }
 
     /**
@@ -45,7 +55,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -53,7 +64,17 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:20',
+            'description' => 'nullable|string'
+        ]);
+
+        $category = Category::findOrFail($id);
+        $category->update($validated);
+
+        return redirect()->route('categories.index')
+            ->with('success', 'Votre categorie a bien ete mise a jour.')
+            ->with('color', 'bg-success');
     }
 
     /**
@@ -61,6 +82,12 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $categoryName = $category->name;
+        $category->delete();
+
+        return redirect()->route('categories.index')
+            ->with('success', 'La categorie "' . $categoryName . '" a bien ete supprimee.')
+            ->with('color', 'bg-success');
     }
 }

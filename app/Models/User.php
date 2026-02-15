@@ -49,12 +49,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
-
-    /**
-     * Un utilisateur a plusieurs paniers.
-     */
-    public function carts(): HasMany
-    {
-        return $this->hasMany(Cart::class);
-    }
 }

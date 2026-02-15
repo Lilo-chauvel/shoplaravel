@@ -73,9 +73,9 @@ class AdminProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $product)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::findOrFail($product);
         $productName = $product->name;
         $product->delete();
         return redirect()->route('products.index')
